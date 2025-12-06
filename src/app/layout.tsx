@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Kode_Mono } from "next/font/google";
 import "./globals.css";
+import { Button } from "@/components/ui/button";
+import { Hexagon, Menu } from "lucide-react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const kodeMono = Kode_Mono({
+  variable: "--font-kode-mono",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const geistFont = Geist({
+  variable: "--font-geist",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -25,9 +29,41 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${kodeMono.variable} ${geistFont.variable} antialiased`}
+        style={{ fontFamily: 'var(--font-kode-mono)' }}
       >
+         {/* --- Navbar --- */}
+              <nav className="bg-background border-b-base-placeholder fixed z-[100] flex h-[60px] w-full items-center justify-between border-b px-4 text-white transition-colors duration-300 lg:px-6">
+                <div className="nav-item flex items-center gap-3 group cursor-pointer">
+                  <div className="relative">
+                    <Hexagon className="text-primary fill-primary/20" size={32} strokeWidth={2.5} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-1 h-1 bg-white rounded-full animate-ping" />
+                    </div>
+                  </div>
+                  <span className="text-2xl font-bold tracking-tighter text-white group-hover:text-primary transition-colors">
+                    RAFLUX
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-8">
+                    <div className="hidden md:flex gap-8">
+                        {['MARKETPLACE', 'LEADERBOARD', 'REWARDS'].map((item) => (
+                            <a key={item} href="#" className="nav-item text-xs font-mono text-muted-foreground hover:text-white transition-colors tracking-widest">
+                                {item}
+                            </a>
+                        ))}
+                    </div>
+                    <Button className="nav-item">Launch App</Button>
+                    <button className="md:hidden nav-item text-white">
+                        <Menu />
+                    </button>
+                </div>
+              </nav>
+        <main className="min-h-screen flex-1 overflow-x-clip">
+
         {children}
+        </main>
       </body>
     </html>
   );
