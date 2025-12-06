@@ -104,7 +104,6 @@ kmkm
     </CyberFrame>
              <Card className="border border-raflux-border p-6 bg-[#111]">
                  <div className="flex items-center gap-4 mb-4">
-                    <Avatar src="https://picsum.photos/id/64/100/100" />
                     <div>
                         <h4 className="font-bold">User Profile</h4>
                         <span className="text-xs text-raflux-sub font-mono">0x1234@.5678</span>
@@ -311,7 +310,6 @@ kmkm
             </TableBody>
          </Table>
       </section>
-      <TechCard />
 
     </div>
   );

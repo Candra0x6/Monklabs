@@ -7,15 +7,7 @@ export const SectionPartners: React.FC = () => {
         <div className="border-b border-border">
              {/* Row 1: Partners */}
              <div className="grid grid-cols-2 md:grid-cols-5 border-b border-border">
-                {PARTNERS.map((p, i) => (
-                    <div key={i} className="h-32 border-r border-border last:border-r-0 flex flex-col items-center justify-center gap-3 bg-background hover:bg-card transition-colors group relative">
-                        <CornerMarkers />
-                        <div className="w-12 h-12 rounded-lg bg-gray-800 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-300">
-                             <img src={p.img} alt={p.name} className="w-full h-full object-cover"/>
-                        </div>
-                        <span className="text-[10px] font-mono text-muted-foreground group-hover:text-foreground transition-colors">{p.name}</span>
-                    </div>
-                ))}
+                
              </div>
              
              {/* Row 2: Chains/Tokens */}
