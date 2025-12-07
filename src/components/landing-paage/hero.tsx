@@ -83,10 +83,8 @@ export const Hero: React.FC = () => {
                     <div className="border-border col-span-6 overflow-hidden lg:border-x">
 
                         <div className="grid lg:h-[250px] lg:grid-cols-3">
-                            <div className="col-span-2 border-r border-border p-12 flex flex-col justify-center relative overflow-hidden">
-                                <div className="absolute inset-0 opacity-[0.03]"
-                                    style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
-                                </div>
+                            <div className="border-border col-span-2 flex h-full items-center px-6 max-lg:border-b max-lg:py-6 lg:border-r">
+
 
                                 <h1 className="text-5xl md:text-7xl lg:text-5xl font-bold leading-[0.9] tracking-tight uppercase z-10">
                                     <span className="block hero-word">Own NFTS,</span>
@@ -96,7 +94,6 @@ export const Hero: React.FC = () => {
                                     </span>
                                 </h1>
 
-                                <div className="absolute bottom-0 right-0 w-16 h-16 border-l border-t border-border/50" />
                             </div>
 
                             <div className=" grid h-[250px] grid-rows-2">
@@ -107,16 +104,11 @@ export const Hero: React.FC = () => {
                                         <div className="absolute inset-0 bg-black/40" />
                                     </div>
 
-                                    <div className="absolute bottom-4 left-4 z-10">
-                                        <Badge variant="default" className="bg-black/80 backdrop-blur">Featured Pool</Badge>
-                                    </div>
+
                                 </div>
 
                                 <div className="flex w-full items-center justify-center px-5">
-                                    <div className="absolute top-0 left-0 w-4 h-4 border-b border-r border-border" />
-                                    <div className="absolute bottom-0 right-0 w-4 h-4 border-t border-l border-border" />
 
-                                    <p className="text-muted-foreground font-mono text-xs mb-4 uppercase tracking-widest">Limited Time Offer</p>
                                     <Button className="w-full gap-2 group">
                                         Buy Tickets Now
                                         <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
@@ -126,7 +118,7 @@ export const Hero: React.FC = () => {
                         </div>
 
                         {/* --- Asset Grid Row --- */}
-                        <div className=" grid h-[225px] grid-cols-2 border-y lg:grid-cols-5">
+                        <div className=" border-border grid h-[225px] grid-cols-2 border-y lg:grid-cols-5">
                             {ASSETS.map((asset) => (
                                 <div key={asset.id} className="asset-card-hero">
                                     <AssetCard asset={asset} />
@@ -137,9 +129,7 @@ export const Hero: React.FC = () => {
                         {/* --- Footer / Bottom Hero --- */}
                         <div className="grid h-full grid-cols-5">
                             <div className="border-border col-span-2 h-full border-r px-6 pt-[90px]">
-                                <div className="text-muted-foreground font-mono text-sm mb-2">Try Your Luck Today</div>
-                                <Separator className="mb-4" />
-                                <div className="absolute top-10 left-10 w-20 h-20 border border-border rounded-full animate-[spin_10s_linear_infinite] opacity-20 border-dashed" />
+                                <div className="text-text-tertiary text-right text-sm font-medium uppercase">Try Your Luck Today</div>
                             </div>
 
                             <div className="col-span-3 overflow-hidden">
@@ -161,8 +151,8 @@ export const Hero: React.FC = () => {
 
                 </div>
             </div>
-                <SectionEmpower />
-            
+            <SectionEmpower />
+
         </section>
 
     );
