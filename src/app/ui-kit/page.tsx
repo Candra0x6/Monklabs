@@ -19,6 +19,8 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { Calendar, User } from 'lucide-react';
 import { CyberFrame } from '@/components/ui/cyber-frame';
 import TechCard from '@/components/TechCard';
+import CarouselCard from '@/components/CarouselCard';
+import Footer from '@/components/Footer';
 
 export default function UiShowcase() {
   return (
@@ -310,7 +312,8 @@ kmkm
             </TableBody>
          </Table>
       </section>
-
+                    <CarouselCard />
+                    <Footer />
     </div>
   );
 };
