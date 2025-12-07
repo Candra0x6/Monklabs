@@ -1,57 +1,107 @@
-import React from 'react';
-import { Hexagon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+/* eslint-disable react/jsx-no-comment-textnodes */
+"use client"
+import React, { useRef, useEffect } from 'react'
+import gsap from 'gsap'
+import { Button } from './ui/button'
+import LineVector from './svg/line-vector'
 
-export const Footer: React.FC = () => {
+function Footer() {
+    const marqueeRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const marqueeTextItems = [
+        "NFTs starting from just $10!",
+        "Join the wave",
+        "More liquid than opensea",
+        "Start selling on raflux"
+    ];
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const width = marqueeRef.current?.scrollWidth || 0;
+
+            gsap.to(marqueeRef.current, {
+                x: -width / 2,
+                duration: 40,
+                ease: "none",
+                repeat: -1,
+            });
+        }, wrapperRef);
+
+        return () => ctx.revert();
+    }, []);
     return (
-        <div className="relative border-t border-border bg-background overflow-hidden">
-             {/* Background Texture */}
-             <div className="absolute inset-0 opacity-10 pointer-events-none" 
-                 style={{backgroundImage: 'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop")', backgroundSize: 'cover'}} 
-             />
+        <footer className=''>
+            <div className="border-b-border grid border-b lg:h-[calc(100vh-42px)] lg:grid-cols-8 2xl:h-[95vh]">
+                <div className='border-base-placeholder border-r' />
+                <div className="border-base-placeholder col-span-6 flex flex-col justify-end border-r">
+                    <div className="relative flex flex-col justify-end px-6 py-10.5 max-lg:gap-6 lg:pl-15 2xl:w-fit">
+                        <h1 className='text-pumpkin-100 text-4xl font-semibold uppercase lg:text-[64px]'>
+                            DECENTRELIZE RAFFLES FOR DIGITAL ASSET
+                        </h1>
+                        <div className="-top-12 -bottom-15 flex h-12 items-center lg:absolute lg:right-0 lg:justify-center ">
+                            <div className="relative max-lg:hidden ">
+                                <div className="border-primary absolute -bottom-12 -left-6 flex size-13 items-center justify-center rounded-full border border-dashed">
+                                    <div className="border-primary flex size-9 items-center justify-center rounded-full border">
+                                        <div className='bg-primary size-4 rounded-full' />
+                                    </div>
+                                </div>
+                                <div className="">
 
-             <div className="relative z-10 pt-24 pb-12 px-8 md:px-16 max-w-[1600px] mx-auto">
-                 <div className="flex justify-center mb-16">
-                     <Button className="px-8 py-4 bg-primary text-primary-foreground hover:bg-primary/90 shadow-none clip-path-none">
-                        Start Raffling Now
-                     </Button>
-                 </div>
+                                    <LineVector />
+                                </div>
+                            </div>
+                            <Button className='w-full lg:w-auto'>
+                                <div className="flex items-center gap-2 text-sm">
+                                    Launch App
+                                </div>
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="border-border grid border-y lg:h-20 lg:grid-cols-3">
+                        <div className="flex flex-col items-start justify-center gap-1.5 px-6 max-lg:py-4">
+                            <p className='text-primary text-sm uppercase'>
+                                <span>RAFLUX @2025. COPYRIGHT</span>
+                            </p>
+                            <p className='text-text-secondary text-[10px] uppercase'>
+                                ALL RIGHT RESERVED
+                            </p>
+                        </div>
+                        <div className="border-base-placeholder flex items-start px-6 max-lg:border-y max-lg:py-4 lg:items-center lg:justify-center lg:border-x">
+                            <p className='max-w-[225px] text-xs font-medium uppercase lg:text-center'>
+    // Stop waiting months on traditional marketplaces
+                            </p>
+                        </div>
+                        <div className="flex flex-col items-start justify-center px-6 max-lg:py-4 lg:items-end">
+                            <p className='text-text-tertiary text-sm uppercase'>
+                                CONTACT
+                            </p>
+                            <p className='text-text-secondary text-[10px] uppercase'>
+                                HI@RAFLUX.ID
+                            </p>
+                        </div>
+                    </div>
+                    <div className="relative h-52.5 w-full 2xl:h-100">
+                        <div className="relative h-full w-full">
+                            k
+                        </div>
+                    </div>
+                </div>
+                <div />
+            </div>
+            <div ref={wrapperRef} className="flex h-10.5 w-screen items-center justify-center">
+                <div ref={marqueeRef} className="flex whitespace-nowrap">
+                    {[...marqueeTextItems, ...marqueeTextItems].map((text, i) => (
+                        <div key={i} className="flex items-center" style={{ minWidth: '25vw', justifyContent: 'center' }}>
+                            <span className="text-text-secondary text-[10px] uppercase hover:text-primary transition-colors cursor-default">
+                                {text}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-                 <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold uppercase text-center mb-24 leading-none text-foreground/90">
-                    Decentralized Raffles <br/>
-                    For Digital Asset
-                 </h2>
+        </footer>
+    )
+}
 
-                 <div className="grid grid-cols-1 md:grid-cols-4 border-t border-border/30 pt-8 gap-8 font-mono text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">
-                    <div>
-                        <div className="text-primary mb-2">RAFLUX @2025. COPYRIGHT</div>
-                        <div>All Right Reserved</div>
-                    </div>
-                    
-                    <div className="md:col-span-2 text-center">
-                        // Stop Waiting Months on <br/>
-                        Traditional Marketplaces
-                    </div>
-
-                    <div className="text-right">
-                        <div className="mb-2">Contact</div>
-                        <div className="text-foreground">hi@raflux.io</div>
-                    </div>
-                 </div>
-                 
-                 {/* Bottom Icon Row */}
-                 <div className="mt-12 flex justify-between items-center text-[10px] text-muted-foreground font-mono uppercase">
-                    <div className="flex gap-4">
-                        <span>• Client Network</span>
-                        <span className="text-green-500">• Websocket Connection</span>
-                    </div>
-                    <div className="flex gap-4">
-                        <Hexagon size={12} />
-                        <span>Terms of Service</span>
-                        <span>Help and Support</span>
-                    </div>
-                 </div>
-             </div>
-        </div>
-    );
-};
+export default Footer
