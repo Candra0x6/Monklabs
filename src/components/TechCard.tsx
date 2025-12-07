@@ -74,20 +74,21 @@ const TechCard: React.FC<TechCardProps> = ({
               <div style={{ transform: `${hoverTransform}` }} className="absolute inset-0 w-full h-full transition-transform duration-500 transform-3d">
 
                 {/* Front Face */}
-                <div className="absolute inset-0 [backface-visibility:hidden] [transform:scaleX(1)]">
+                <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
                   
                      {/* Border Layer */}
                     <div
                         className="absolute inset-0 bg-[#484848]"
-                        style={{ clipPath: clipPathValue }}
+                        style={{ clipPath: clipPathValue, transform: 'scaleX(-1)' }}
                     />
                     {/* Main Card Shape Background */}
                     <div
-                        className="absolute inset-px text-primary overflow-hidden bg-background "
-                        style={{ clipPath: clipPathValue }}
-                    >
+                        className="absolute inset-px overflow-hidden bg-background "
+                        style={{ clipPath: clipPathValue, transform: 'scaleX(-1)' }}
+                    />
 
-                        {/* --- Content Layout --- */}
+                    {/* --- Content Layout --- */}
+                    <div className="absolute inset-px text-primary overflow-hidden">
                         <div className="relative h-full flex flex-col justify-between p-10 z-10">
 
                             {/* Header Area */}
@@ -141,7 +142,7 @@ const TechCard: React.FC<TechCardProps> = ({
                 </div>
 
                 {/* Back Face */}
-                <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)]">
+                <div className="absolute inset-0" style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
                 {/* Border Layer */}
                     <div
                         className="absolute inset-0 bg-[#484848]"
