@@ -14,7 +14,8 @@ export const SectionSellers: React.FC = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             if (sectionRef.current && contentRef.current) {
-                gsap.to(contentRef.current, {
+                gsap.set(contentRef.current, { willChange: "transform" });
+                const tl = gsap.to(contentRef.current, {
                     x: () => -(contentRef.current!.scrollWidth - window.innerWidth),
                     ease: "none",
                     scrollTrigger: {
@@ -24,6 +25,9 @@ export const SectionSellers: React.FC = () => {
                         scrub: 1,
                         invalidateOnRefresh: true,
                     }
+                });
+                tl.eventCallback("onComplete", () => {
+                    gsap.set(contentRef.current, { willChange: "auto" });
                 });
             }
         });
@@ -40,8 +44,8 @@ export const SectionSellers: React.FC = () => {
                 <div className="border-border-2 h-full border-r col-span-2" />
                 <div className="border-border-2 h-full border-r" />
             </div>
-            <div className="flex w-full items-center gap-2 py-20 lg:py-100 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
-                <div ref={contentRef} className="border-border-2 flex gap-12 max-lg:flex-col lg:gap-2 lg:border-y w-max">
+            <div className="flex w-full items-center gap-2 py-20 lg:py-100 lg:sticky lg:top-0 lg:h-screen overflow-hidden" style={{ perspective: '1000px' }}>
+                <div ref={contentRef} className="border-border-2 flex gap-12 max-lg:flex-col lg:gap-2 lg:border-y w-max" style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
                     <div className="max-lg:border-border-2 flex max-lg:flex-col max-lg:border-y lg:h-[80vh] lg:gap-2 bg-background">
                         <div className='h-full w-0 lg:w-[96px] bg-background' />
                         <div className="bg-background border-border-2 flex w-full flex-col overflow-hidden border-x lg:w-[628px]">
@@ -68,11 +72,11 @@ export const SectionSellers: React.FC = () => {
                             </div>
                         </div>
                         <div className="bg-background border-border-2 relative flex h-full w-full items-start justify-end border-x p-8 max-lg:min-h-[300px] lg:w-[869px] lg:p-16">
- <div className="absolute inset-0 opacity-[0.03]"
-                                    style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
-                                </div>                            <div className="absolute z-10 bottom-0 left-0  h-full w-full flex items-end">
-
-                                <Image src="/liquid.svg" alt="More liquid than opensea" width={600} height={400} loading='lazy' className="w-full h-full object-contain max-lg:object-cover" />
+                            <div className="absolute inset-0 opacity-[0.03]"
+                                style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+                            </div>
+                            <div className="absolute z-10 bottom-0 left-0  h-full w-full flex items-end">
+                                <Image src="/liquid.svg" alt="More liquid than opensea" width={600} height={400} loading='lazy' className="w-auto h-full object-contain max-lg:object-cover" />
                             </div>                            <h1 className='text-primary relative z-10 text-4xl font-bold uppercase max-lg:m-auto max-lg:text-center lg:ml-auto lg:max-w-[488px] lg:text-right lg:text-[56px]'>
                                 More liquid than opensea
                             </h1>
@@ -102,11 +106,11 @@ export const SectionSellers: React.FC = () => {
                             </div>
                         </div>
                         <div className="bg-background border-border-2 relative flex h-full w-full items-start justify-end border-x p-8 max-lg:min-h-[300px] lg:w-[869px] lg:p-16">
- <div className="absolute inset-0 opacity-[0.03]"
-                                    style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
-                                </div>                            <div className="absolute z-10 bottom-0 left-0  h-full w-full flex items-end">
+                            <div className="absolute inset-0 opacity-[0.03]"
+                                style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+                            </div>                            <div className="absolute z-10 bottom-0 left-0  h-full w-full flex items-end">
 
-                                <Image src="/ring.svg" alt="More liquid than opensea" width={600} height={400} loading='lazy' className="w-full h-fit object-contain max-lg:object-cover " />
+                                <Image src="/ring.svg" alt="More liquid than opensea" width={600} height={400} loading='lazy' className="w-auto h-full lg:w-full lg:h-fit object-contain max-lg:object-cover " />
                             </div>
                             <h1 className='text-primary relative z-10 text-4xl font-bold uppercase max-lg:m-auto max-lg:text-center lg:ml-auto lg:max-w-[488px] lg:text-right lg:text-[56px]'>
                                 Join instantly with USDC/USDT                            </h1>
