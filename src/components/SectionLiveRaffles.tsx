@@ -16,8 +16,8 @@ const cardData = [
         front_description: 'Experience the future of event access with NFT tickets that put you in control. Say goodbye to scalpers and hello to secure, verifiable ownership of your event entry.',
         back_top_text: '// NFT TICKETS',
         back_bottom_text: '// NFT TICKETS',
-        hoverRotateZ: 0,
-        hoverTranslateX: 0,
+        hoverRotateZ: -8,
+        hoverTranslateX: 130,
         hoverTranslateY: 0,
         image: '/plus-retro.svg'
     },
@@ -26,9 +26,9 @@ const cardData = [
         front_description: 'Each ticket is an entry. The more you hold, the better your chance to win.',
         back_top_text: '// GET HIGHER ODDS',
         back_bottom_text: '// GET HIGHER ODDS',
-        hoverRotateZ: 0,
+        hoverRotateZ: 7,
         hoverTranslateX: 0,
-        hoverTranslateY: 0,
+        hoverTranslateY: -15,
         image: '/girg-retro.svg'
     },
     {
@@ -36,9 +36,9 @@ const cardData = [
         front_description: 'Even if you buy many tickets, the winner is always chosen randomly and provably fair using Chainlink VRF.',
         back_top_text: '// EVM COMPATIBLE (BASE)',
         back_bottom_text: '// EVM COMPATIBLE (BASE)',
-        hoverRotateZ: 0,
-        hoverTranslateX: 0,
-        hoverTranslateY: 0,
+        hoverRotateZ: 10,
+        hoverTranslateX: -160,
+        hoverTranslateY: 30,
         image: '/ring-retro.svg',
 
     },
@@ -52,6 +52,21 @@ export const SectionLiveRaffles: React.FC = () => {
     const marqueeRef = useRef<HTMLDivElement>(null);
 
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            if (marqueeRef.current) {
+                gsap.to(marqueeRef.current, {
+                    xPercent: -50,
+                    repeat: -1,
+                    duration: 20,
+                    ease: "none",
+                });
+            }
+        });
+
+        return () => ctx.revert();
+    }, []);
+
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
@@ -63,18 +78,20 @@ export const SectionLiveRaffles: React.FC = () => {
                 }
             });
 
-            tl.to(".tech-card-item", {
+            tl.set(".tech-card-item", { willChange: "transform" })
+            .to(".tech-card-item", {
                 x: 0,
                 y: 0,
                 rotation: 0,
                 ease: "power1.inOut",
+                duration: 0.5
+            })
+            .to(".tech-card-item", {
+                rotateY: 180,
+                ease: "power1.inOut",
                 duration: 1
             })
-                .to(".tech-card-item", {
-                    rotateY: 180,
-                    ease: "power1.inOut",
-                    duration: 1
-                });
+            .set(".tech-card-item", { willChange: "auto" });
         }, sectionRef);
 
         return () => ctx.revert();
@@ -108,7 +125,7 @@ export const SectionLiveRaffles: React.FC = () => {
                         </div>
                     ))
                 }
-                <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full z-0 overflow-hidden">
+              <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full z-0 overflow-hidden">
                     <div ref={marqueeRef} className='group flex [gap:var(--gap)] w-max [--duration:40s] [--gap:1rem] flex-row p-0'>
                         <div className='flex shrink-0 justify-around [gap:var(--gap)] flex-row'>
                             {[1, 2, 3, 4, 5, 6].map((i) => (
