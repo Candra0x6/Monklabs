@@ -4,31 +4,31 @@ export const ASSETS: Asset[] = [
   {
     id: '1',
     name: 'PUDGY PENGUINS',
-    image: 'https://picsum.photos/id/1062/200/200',
+    image: '/nft-assets/pudgy_penguins.svg',
     originalPrice: 200000,
     ticketCost: 10,
     type: 'NFT'
   },
   {
     id: '2',
-    name: '10 SOL',
-    image: 'https://picsum.photos/id/1070/200/200', // Placeholder for SOL logo
+    name: '1 BTC',
+    image: '/nft-assets/bitcoin.svg', // Placeholder for SOL logo
     originalPrice: 200000,
     ticketCost: 10,
     type: 'TOKEN'
   },
   {
     id: '3',
-    name: 'WORLD OF WOMEN',
-    image: 'https://picsum.photos/id/1027/200/200',
+    name: 'DOODLES',
+    image: '/nft-assets/doodles.svg',
     originalPrice: 200000,
     ticketCost: 10,
     type: 'NFT'
   },
   {
     id: '4',
-    name: '1 BTC',
-    image: 'https://picsum.photos/id/1055/200/200', // Placeholder for BTC
+    name: '10 SOL',
+    image: '/nft-assets/sol.svg', // Placeholder for BTC
     originalPrice: 200000,
     ticketCost: 10,
     type: 'TOKEN'
@@ -36,7 +36,7 @@ export const ASSETS: Asset[] = [
   {
     id: '5',
     name: 'GEMESIS',
-    image: 'https://picsum.photos/id/1078/200/200',
+    image: '/nft-assets/gemsis.svg',
     originalPrice: 200000,
     ticketCost: 10,
     type: 'NFT'
@@ -52,14 +52,21 @@ export const MARQUEE_TEXTS = [
   "INSTANT SETTLEMENT"
 ];
 
-export const PARTNERS = [
-    { name: "PUDGY PENGUINS", img: "https://picsum.photos/id/101/100/100" },
-    { name: "MOONBIRDS", img: "https://picsum.photos/id/102/100/100" },
-    { name: "DOODLES", img: "https://picsum.photos/id/103/100/100" },
-    { name: "MILADY", img: "https://picsum.photos/id/104/100/100" },
-    { name: "AZUKI", img: "https://picsum.photos/id/105/100/100" },
+export const NFT_DATA = [
+    { name: "PUDGY PENGUINS", img: "/nft-assets/pudgy_penguins.svg" },
+    { name: "MOONBIRDS", img: "/nft-assets/moonbirds.svg" },
+    { name: "DOODLES", img: "/nft-assets/doodles.svg" },
+    { name: "MILADY", img: "/nft-assets/milady.svg" },
+    { name: "AZUKI", img: "/nft-assets/azuki.svg" },
 ];
 
+export const TOKEN_DATA = [
+    { name: "CBTC ON BASE", img: "/nft-assets/bitcoin.svg" },
+    { name: "WETH ON BASE", img: "/nft-assets/ethereum.svg" },
+    { name: "WBTC ON BASE", img: "/nft-assets/wbtc.svg" },
+    { name: "USDC ON BASE", img: "/nft-assets/usdc.svg" },
+    { name: "BSK ON BASE", img: "/nft-assets/bsk.svg" },
+];
 export const CHAINS = [
     { name: "USDC ON BASE", icon: "S", color: "blue" },
     { name: "CBBTC ON BASE", icon: "B", color: "orange" },
@@ -87,21 +94,21 @@ export const LIVE_RAFFLES = [
     {
         id: 1,
         name: "Pudgy Penguins #7105",
-        image: "https://picsum.photos/id/237/400/400",
+        image: "/nft-assets/pudgy_penguins.svg",
         endsIn: "13D : 02H : 04M : 24S",
         tickets: 5
     },
     {
         id: 2,
         name: "Pudgy Penguins #7105",
-        image: "https://picsum.photos/id/238/400/400",
+        image: "/nft-assets/pudgy_penguins.svg",
         endsIn: "13D : 02H : 04M : 24S",
         tickets: 5
     },
     {
         id: 3,
         name: "Pudgy Penguins #7105",
-        image: "https://picsum.photos/id/239/400/400",
+        image: "/nft-assets/pudgy_penguins.svg",
         endsIn: "13D : 02H : 04M : 24S",
         tickets: 5
     }
