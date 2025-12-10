@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen/loading-screen";
+import { LayoutClient } from "@/components/layout-navbar/layout-client";
 
 export default function RootLayoutClient({
     children,
@@ -14,9 +15,9 @@ export default function RootLayoutClient({
     };
 
     return (
-        <>
+        <LayoutClient>
             {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
             {children}
-        </>
+        </LayoutClient>
     );
 }
