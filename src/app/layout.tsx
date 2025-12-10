@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Kode_Mono } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
-import { Hexagon, Menu } from "lucide-react";
 import MainFooter from "@/components/MainFooter";
+import LayoutClient from "./layout-client";
+import Image from "next/image";
 
 const kodeMono = Kode_Mono({
   variable: "--font-kode-mono",
@@ -33,31 +34,26 @@ export default function RootLayout({
         className={`${kodeMono.variable} ${geistFont.variable} antialiased`}
         style={{ fontFamily: 'var(--font-kode-mono)' }}
       >
-        {/* --- Navbar --- */}
-        <nav className="bg-background border-border fixed z-100 flex h-[60px] w-full items-center justify-between border-b p-2 text-white transition-colors duration-300 lg:px-6">
-          <div className="nav-item flex items-center gap-3 group cursor-pointer">
-            <div className="relative">
-              <Hexagon className="text-primary fill-primary/20" size={32} strokeWidth={2.5} />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-1 h-1 bg-white rounded-full animate-ping" />
-              </div>
+        <LayoutClient>
+          {/* --- Navbar --- */}
+          <nav className="bg-background border-border fixed z-100 flex h-[60px] w-full items-center justify-between border-b p-2 text-white transition-colors duration-300 lg:px-6">
+            <div className="flex items-center cursor-pointer">
+
+              <Image loading="lazy" src="/logo.svg" alt="Logo" width={83} height={26} />
             </div>
-            <span className="text-2xl font-bold tracking-tighter text-white group-hover:text-primary transition-colors">
-              RAFLUX
-            </span>
-          </div>
 
-          <div className="flex items-center gap-8">
+            <div className="flex items-center">
 
-            <Button className="nav-item block">Launch App</Button>
+              <Button className="nav-item block">Launch App</Button>
 
-          </div>
-        </nav>
-        <main className="min-h-screen w-screen flex-1 overflow-x-clip">
+            </div>
+          </nav>
+          <main className="min-h-screen w-full overflow-x-clip">
 
-          {children}
-        </main>
-        <MainFooter />
+            {children}
+          </main>
+          <MainFooter />
+        </LayoutClient>
       </body>
     </html>
   );
