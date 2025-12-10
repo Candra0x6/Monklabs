@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
-import ArrowRight from './svg/arrow-right';
-import { CornerMarkers } from './CornerMarkers';
+import ArrowRight from './icons/arrow-right';
+import { CornerMarkers } from './ui/corner-markers/corner-markers';
 import Image from 'next/image';
 
 interface TechCardProps {

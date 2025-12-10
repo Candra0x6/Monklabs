@@ -1,8 +1,27 @@
+/**
+ * Gold Noise Animation Component
+ * 
+ * Creates a WebGL-based animated noise effect using Three.js and React Three Fiber.
+ * This component generates a procedurally animated noise pattern with:
+ * - Simplex 3D noise for organic, smooth animation
+ * - Dithering/grid pattern overlay for retro visual effect
+ * - Mouse position and hover state tracking
+ * - Real-time animation synchronized with frame updates
+ * 
+ * The shader creates an interactive, flowing noise pattern that responds to
+ * mouse movement and hover states, making it suitable for backgrounds or
+ * decorative animated elements.
+ */
+
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import gsap from 'gsap';
 
+/** 
+ * TypeScript declaration for React Three Fiber custom JSX elements
+ * Extends React JSX to recognize Three.js mesh elements
+ */
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
@@ -17,7 +36,10 @@ declare module 'react' {
   }
 }
 
-// Vertex Shader: Simple full-screen quad
+/**
+ * Vertex Shader: Simple full-screen quad
+ * Passes UV coordinates to fragment shader for texture mapping
+ */
 const vertexShader = `
   varying vec2 vUv;
   void main() {
@@ -26,7 +48,11 @@ const vertexShader = `
   }
 `;
 
-// Fragment Shader: Simplex Noise + FBM + Dither/Grid Effect
+/**
+ * Fragment Shader: Simplex Noise + FBM + Dither/Grid Effect
+ * Implements Simplex 3D noise algorithm for procedural animation
+ * with dithering pattern overlay for retro aesthetic
+ */
 const fragmentShader = `
   precision mediump float;
   uniform float uTime;
@@ -36,7 +62,8 @@ const fragmentShader = `
   varying vec2 vUv;
 
   // --- Simplex 3D Noise ---
-  // https://github.com/stegu/webgl-noise/blob/master/src/noise3D.glsl
+  // Implementation based on: https://github.com/stegu/webgl-noise/blob/master/src/noise3D.glsl
+  // This creates smooth, continuous noise values for organic animations
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -190,39 +217,71 @@ const fragmentShader = `
   }
 `;
 
-// Inner component that uses R3F hooks - must be inside Canvas
+/**
+ * GoldNoiseVisualInner: Inner component for WebGL noise rendering
+ * 
+ * This component must be placed inside a Canvas element and uses React Three Fiber hooks.
+ * It manages the shader material, uniforms, and mouse interaction for the noise animation.
+ * 
+ * Features:
+ * - Real-time frame updates with GSAP for smooth animations
+ * - Mouse position tracking converted from screen space to UV coordinates
+ * - Hover state animation that controls the "black hole" effect
+ * - Dynamic resolution updates for responsive rendering
+ */
 const GoldNoiseVisualInner: React.FC = () => {
+  /** Reference to the Three.js mesh for raycasting and transform control */
   const meshRef = useRef<THREE.Mesh>(null);
+  /** Reference to the shader material to update uniforms each frame */
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  /** Three.js canvas size information */
   const { size } = useThree();
+  /** Hover state animation reference (0 = not hovering, 1 = hovering) */
   const hoverState = useRef({ value: 0 });
 
+  /**
+   * Shader uniforms object with initial values
+   * These values are updated each frame to control animation behavior
+   */
   const uniforms = useMemo(
     () => ({
+      /** Elapsed time in seconds for animation timing */
       uTime: { value: 0 },
+      /** Canvas resolution for aspect ratio correction */
       uResolution: { value: new THREE.Vector2(size.width, size.height) },
+      /** Mouse position in normalized UV coordinates (0-1) */
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      /** Hover state for controlling black hole effect (0-1) */
       uHoverState: { value: 0 },
     }),
     [size.width, size.height]
   );
 
-  // Update uniforms on every frame
+  /**
+   * Frame update hook: Called on every animation frame
+   * Updates shader uniforms with current time, resolution, and mouse position
+   */
   useFrame(({ clock, pointer }) => {
     if (materialRef.current) {
+      // Update elapsed time for animation
       materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
+      // Update canvas resolution for responsive rendering
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
 
-      // Update mouse position (pointer is -1 to 1, map to 0 to 1)
+      // Convert pointer coordinates from -1 to 1 range to 0 to 1 UV range
       const targetX = (pointer.x + 1) * 0.5;
       const targetY = (pointer.y + 1) * 0.5;
       materialRef.current.uniforms.uMouse.value.set(targetX, targetY);
 
-      // Update hover state
+      // Apply current hover state
       materialRef.current.uniforms.uHoverState.value = hoverState.current.value;
     }
   });
 
+  /**
+   * Pointer enter handler: Animates hover state to 1 with smooth easing
+   * Triggers the "black hole" effect to appear
+   */
   const handlePointerEnter = () => {
     gsap.to(hoverState.current, {
       value: 1,
@@ -231,6 +290,10 @@ const GoldNoiseVisualInner: React.FC = () => {
     });
   };
 
+  /**
+   * Pointer leave handler: Animates hover state back to 0 with smooth easing
+   * Causes the "black hole" effect to fade away
+   */
   const handlePointerLeave = () => {
     gsap.to(hoverState.current, {
       value: 0,
@@ -245,8 +308,10 @@ const GoldNoiseVisualInner: React.FC = () => {
       scale={[100, 100, 1]} // Scale up to ensure raycasting covers the entire viewport
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-    > {/* Geometry -1 to 1 covers full screen in clip space */}
+    > 
+      {/* Plane geometry (-1 to 1) covers full screen in clip space */}
       <planeGeometry args={[2, 2]} />
+      {/* Shader material with custom vertex and fragment shaders */}
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}
@@ -257,15 +322,26 @@ const GoldNoiseVisualInner: React.FC = () => {
   );
 };
 
-// Outer component that wraps the Canvas
+/**
+ * GoldNoiseVisual: Main exported component for gold noise animation
+ * 
+ * Wraps the inner component in a Three.js Canvas element with
+ * optimized settings for performance and visual quality.
+ * 
+ * Configuration:
+ * - dpr={1}: Fixed device pixel ratio for consistent performance
+ * - antialias={false}: Disabled for crisp, pixelated visual style
+ * - Camera positioned to view full screen quad
+ */
 export const GoldNoiseVisual: React.FC = () => {
   return (
     <Canvas
       className='w-full h-full'
-      dpr={1} // Fixed 1.0 DPR for performance
+      dpr={1} // Fixed device pixel ratio for consistent performance
       camera={{ position: [0, 0, 1] }}
       gl={{ antialias: false }} // Disable antialias for crisp pixel look
     >
+      {/* Inner component with actual noise rendering logic */}
       <GoldNoiseVisualInner />
     </Canvas>
   )

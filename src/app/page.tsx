@@ -1,17 +1,17 @@
-import BrowseReflix from "@/components/BrowseReflix";
-import Footer from "@/components/Footer";
-import { Hero } from "@/components/landing-paage/hero";
-import { SectionFeatures } from "@/components/SectionFeatures";
-import { SectionFuture } from "@/components/SectionFuture";
-import { SectionLiveRaffles } from "@/components/SectionLiveRaffles";
-import { SectionSellers } from "@/components/SectionSellers";
+import { BrowseReflix } from "@/components/browse-reflix";
+import { Footer } from "@/components/footer-section";
+import { Hero } from "@/components/hero-section/hero";
+import { SectionFeatures } from "@/components/section-features";
+import { SectionLiveRaffles } from "@/components/section-live-raffles";
+import { SectionMission } from "@/components/section-mission";
+import { SectionSellers } from "@/components/section-sellers";
+
 
 export default function Home() {
   return (
     <>
-
       <Hero />
-      <SectionFuture />
+      <SectionMission />
       <SectionSellers />
       <SectionFeatures />
       <SectionLiveRaffles />
