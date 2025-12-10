@@ -5,6 +5,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
   --color-foreground: var(--foreground);
   --font-geist: var(--font-geist);
   --font-mono: var(--font-kode-mono);
@@ -24,6 +26,11 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-secondary: var(--border-secondary);
+  --color-text-marquee: var(--text-marquee);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-primary: var(--text-primary);  
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -46,6 +53,8 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(0.2013 0.0016 17.29);
+  --background-secondary: oklch(0.1496 0 0);
+  --background-tertiary: oklch(0.2931 0 0);
   --foreground: oklch(0.9634 0.0428 87.96);
   --card: oklch(0.2404 0.0015 17.26);
   --card-foreground: oklch(0.145 0 0);
@@ -53,17 +62,20 @@
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.7131 0.1945 47.88);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.6234 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.2404 0.0015 17.26);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --muted: oklch(0.6234 0 0);
+  --muted-foreground: oklch(0.6234 0 0);
+  --accent: oklch(0.709 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.4017 0 0);
   --border-secondary: oklch(0.3052 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --text-secondary: oklch(0.4973 0.1409 43);
+  --text-tertiary: oklch(0.8677 0.1261 79.91);
+  --text-marquee: oklch(0.3231 0.0028 17.3);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
