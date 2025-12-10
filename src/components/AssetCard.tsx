@@ -1,50 +1,122 @@
-import React from 'react';
-import { Diamond } from 'lucide-react';
+import React, { useRef, useMemo, useEffect } from 'react';
+import gsap from 'gsap';
+
 import { Card } from '@/components/ui/card';
 import { Asset } from '@/lib/types/type';
 import { CornerMarkers } from './CornerMarkers';
+import { ASSETS } from '@/lib/contants/constants';
+import Image from 'next/image';
+import UsdtIcon from './svg/usdt-icon';
 
 interface AssetCardProps {
-  asset: Asset;
+  asset?: Asset;
+  className?: string;
+  index?: number;
 }
 
-export const AssetCard: React.FC<AssetCardProps> = ({ asset }) => {
-  return (
-    <Card className="group w-full h-full border-r  border-border last:border-r-0 flex flex-col items-center justify-center p-6 transition-colors duration-300 overflow-hidden relative">
-      <CornerMarkers />
+export const AssetCard: React.FC<AssetCardProps> = ({ className, index = 0 }) => {
+  const stripRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
+  const currentIndex = useRef(0);
+  const assetCount = ASSETS.length;
 
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+  // Create a virtual list with only 10 unique items (much lighter than 250+)
+  const virtualAssets = useMemo(() => {
+    return Array(10).fill(ASSETS).flat();
+  }, []);
 
-      {/* Image Container */}
-      <div className="relative mb-4 transform group-hover:scale-105 transition-transform duration-500 ease-out">
-        <div className="w-24 h-24 rounded-lg overflow-hidden border border-border shadow-2xl">
-          <img src={asset.image} alt={asset.name} className="w-full h-full object-cover" />
-        </div>
+  const totalItems = virtualAssets.length;
 
-        {/* Type Badge (e.g. SOL logo or just styling) */}
-        <div className="absolute -bottom-2 -right-2 bg-background rounded-full p-1 border border-border">
-          {asset.type === 'TOKEN' ? (
-            <div className="w-4 h-4 bg-purple-500 rounded-full animate-pulse" />
-          ) : (
-            <div className="w-4 h-4 bg-blue-500 rounded-full" />
-          )}
-        </div>
-      </div>
+  useEffect(() => {
+    // Initialize based on index to ensure each card shows a different asset by default
+    // We add assetCount to start in the second set (buffer for scrolling up)
+    const startIdx = assetCount + (index % assetCount);
+    currentIndex.current = startIdx;
 
-      {/* Text Content */}
-      <h3 className="text-foreground font-display font-bold text-sm tracking-wide text-center uppercase mb-1">
-        {asset.name}
-      </h3>
+    if (stripRef.current) {
+      // Use yPercent for responsive height
+      // Each item is 1/totalItems of the strip height
+      const percentPerItem = 100 / totalItems;
+      gsap.set(stripRef.current, { y: 0, yPercent: -(startIdx * percentPerItem) });
+    }
+  }, [assetCount, index, totalItems]);
 
-      <div className="text-muted-foreground text-xs line-through font-mono mb-2">
-        ${asset.originalPrice.toLocaleString()}
-      </div>
+  const handleMouseEnter = () => {
+    if (isAnimating.current) return;
 
-      {/* Price / Ticket Cost */}
-      <div className="flex items-center gap-2 text-primary font-bold font-mono text-lg">
-        <Diamond size={16} className="fill-current" />
-        <span>{asset.ticketCost}</span>
+    isAnimating.current = true;
+
+    // Spin by a random amount, e.g., 1 full cycle + random offset
+    // Or just random 5-10 items
+    const steps = Math.floor(Math.random() * 5) + 5; // 5 to 9 items
+    const nextIndex = currentIndex.current + steps;
+
+    const percentPerItem = 100 / totalItems;
+    const targetPercent = -(nextIndex * percentPerItem);
+
+    gsap.set(stripRef.current, { willChange: "transform" });
+    gsap.to(stripRef.current, {
+      yPercent: targetPercent,
+      duration: 2,
+      ease: "power2.inOut",
+      onComplete: () => {
+        gsap.set(stripRef.current, { willChange: "auto" });
+        isAnimating.current = false;
+
+        // Seamless reset to the second set
+        // The item at nextIndex is the same as at (nextIndex % assetCount)
+        // We add assetCount to put it in the second set [5, 9]
+        const resetIndex = (nextIndex % assetCount) + assetCount;
+        currentIndex.current = resetIndex;
+        gsap.set(stripRef.current, { yPercent: -(resetIndex * percentPerItem) });
+      }
+    });
+  }; return (
+    <Card
+      onMouseEnter={handleMouseEnter}
+      className={`group w-full h-full border-r aspect-square border-border last:border-r-0 flex flex-col items-center justify-center p-6 transition-colors duration-300 overflow-hidden relative ${className}`}
+    >
+      <div
+        ref={stripRef}
+        className="absolute top-0 left-0 w-full "
+        style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+      >
+        {virtualAssets.map((item, i) => (
+          <div className="w-full aspect-square flex flex-col items-center justify-center relative shrink-0" key={i}>
+            <CornerMarkers />
+            {/* Image Container */}
+            <div className="relative mb-4">
+              <div className="w-20 h-20 rounded-lg overflow-hidden ">
+                <Image
+                  width={10}
+                  height={10}
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+
+            </div>
+
+            {/* Text Content */}
+            <h3 className="text-foreground text-[16px] font-display font-bold text-sm tracking-wide text-center uppercase mb-1">
+              {item.name}
+            </h3>
+
+            <div className="text-orange-800 text-xs line-through font-mono mb-2 lg:text-[15px] text-[12px]">
+              ${item.originalPrice.toLocaleString()}
+            </div>
+
+            {/* Price / Ticket Cost */}
+            <div className="flex items-center gap-2 text-primary font-bold font-mono lg:text-[16px] text-[12px]">
+              <UsdtIcon />
+              <span>{item.ticketCost}</span>
+            </div>
+          </div>
+        ))}
       </div>
 
     </Card>
