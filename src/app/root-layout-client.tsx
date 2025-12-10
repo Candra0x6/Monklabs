@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen/loading-screen";
+import Lenis from "lenis";
 
-export default function LayoutClient({
+export default function RootLayoutClient({
     children,
 }: Readonly<{
     children: React.ReactNode;

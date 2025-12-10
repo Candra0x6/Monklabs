@@ -308,7 +308,7 @@ const GoldNoiseVisualInner: React.FC = () => {
       scale={[100, 100, 1]} // Scale up to ensure raycasting covers the entire viewport
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-    > 
+    >
       {/* Plane geometry (-1 to 1) covers full screen in clip space */}
       <planeGeometry args={[2, 2]} />
       {/* Shader material with custom vertex and fragment shaders */}

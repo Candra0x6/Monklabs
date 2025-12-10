@@ -64,7 +64,7 @@ const DecodeAnim: React.FC<HackerDecodeProps> = ({ children, trigger, className 
             ease: "power2.inOut", // Smooth easing curve
             onUpdate: () => {
                 const progress = tweenObj.value;
-                
+
                 // Calculate reveal progress with delay
                 // 0-0.2 of animation: random chars only
                 // 0.2-1.0 of animation: progressive reveal

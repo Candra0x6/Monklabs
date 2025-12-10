@@ -1,5 +1,5 @@
 /**
- * Layout Client Component
+ * Navbar Layout Component
  * 
  * Client-side layout wrapper that combines navbar, main content area, and footer.
  * Serves as the main layout structure for the entire application.
@@ -20,20 +20,20 @@ import { MainContent } from './main-content';
 import { MainFooter } from '../main-footer';
 
 /**
- * LayoutClientProps: Component props interface
+ * NavbarLayoutProps: Component props interface
  */
-interface LayoutClientProps {
+interface NavbarLayoutProps {
     /** Child components/pages to render in the main content area */
     children: React.ReactNode;
 }
 
 /**
- * LayoutClient: Main application layout wrapper
+ * NavbarLayout: Main application layout wrapper
  * 
  * Provides the overall page structure with fixed navbar,
  * scrollable content area, and footer.
  */
-export const LayoutClient: React.FC<LayoutClientProps> = ({ children }) => (
+export const NavbarLayout: React.FC<NavbarLayoutProps> = ({ children }) => (
     <>
         {/* Fixed header with logo and navigation */}
         <Navbar />

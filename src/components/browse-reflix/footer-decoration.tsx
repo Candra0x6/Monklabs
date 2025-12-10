@@ -24,9 +24,9 @@ export const FooterDecoration: React.FC = () => (
         {/* Center columns: 4-column span with decorative angled shape */}
         <div className='border-border-secondary relative col-span-4 flex items-center justify-center border-r'>
             {/* Angled polygon shape using clip-path for visual accent */}
-            <div 
-                className='bg-background-secondary absolute top-full h-12 w-[550px]' 
-                style={{ clipPath: "polygon(0px 0%, 100% 0px, 90% 100%, 10% 100%)" }} 
+            <div
+                className='bg-background-secondary absolute top-full h-12 w-[550px]'
+                style={{ clipPath: "polygon(0px 0%, 100% 0px, 90% 100%, 10% 100%)" }}
             />
         </div>
     </div>

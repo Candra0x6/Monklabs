@@ -5,14 +5,15 @@
  * It configures:
  * - Global fonts (Kode_Mono and Geist)
  * - Metadata for the application
- * - Client-side layout wrapper (LayoutClient)
+ * - Client-side root layout wrapper (RootLayoutClient) with navbar, content, footer
  * - Global styles and CSS variables
  */
 
 import type { Metadata } from "next";
 import { Geist, Kode_Mono } from "next/font/google";
 import "./globals.css";
-import { LayoutClient } from "@/components/layout-navbar/layout-client";
+import RootLayoutClient from "./root-layout-client";
+import { NavbarLayout } from "@/components/layout-navbar/navbar-layout";
 
 /** Configuration for Kode_Mono font from Google Fonts */
 const kodeMono = Kode_Mono({
@@ -48,13 +49,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${kodeMono.variable} ${geistFont.variable} antialiased`}
+        className={`${kodeMono.variable} ${geistFont.variable} antialiased scroll-auto!`}
         style={{ fontFamily: 'var(--font-kode-mono)' }}
       >
-        {/* LayoutClient handles client-side navigation and layout logic */}
-        <LayoutClient>
+        {/* RootLayoutClient handles client-side navigation and layout logic */}
+        <RootLayoutClient>
           {children}
-        </LayoutClient>
+        </RootLayoutClient>
       </body>
     </html>
   );

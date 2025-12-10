@@ -47,10 +47,10 @@ const TypeAnim: React.FC<TypeAnimProps> = ({ children, className }) => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setDisplayed('');
         setShowCursor(true);
-        
+
         // Split text into individual characters
         const chars = text.split('');
-        
+
         // Create GSAP timeline for character-by-character animation
         const tl = gsap.timeline({
             // Hide cursor when typing completes
@@ -81,7 +81,7 @@ const TypeAnim: React.FC<TypeAnimProps> = ({ children, className }) => {
             {displayed}
             {/* Blinking cursor shown during typing, hidden when complete */}
             {showCursor && (
-                <span 
+                <span
                     className="inline-block w-3 h-6 ml-1 bg-white animate-pulse align-middle"
                     aria-hidden="true"
                 />
