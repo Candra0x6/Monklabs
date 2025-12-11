@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen/loading-screen";
 import { LayoutClient } from "@/components/layout-navbar/layout-client";
 
+// RootLayoutClient: Client-side layout wrapper with loading screen
 export default function RootLayoutClient({
     children,
 }: Readonly<{
