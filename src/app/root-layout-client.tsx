@@ -16,8 +16,7 @@ export default function RootLayoutClient({
 
     return (
         <LayoutClient>
-            {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
-            {children}
+            {loading ? <LoadingScreen onComplete={handleLoadingComplete} /> : children}
         </LayoutClient>
     );
 }

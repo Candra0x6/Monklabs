@@ -1,5 +1,5 @@
 import React from 'react';
-import TechCard from '../TechCard';
+import { TechCard } from '../tech-card/tech-card';
 
 export interface CardData {
     front_title: string;
