@@ -12,7 +12,7 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Candra0x6/Monklabs-Technical-Test.git
+   git clone https://github.com/Candra0x6/Monklabs.git
    cd monklabs-test
    ```
 
